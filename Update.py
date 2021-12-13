@@ -1,5 +1,4 @@
 import pygame
-import sys
 import time
 import random
 import ScoreCircle
@@ -42,5 +41,5 @@ def collisioncheck(player, obstacles, screen):
             pygame.display.flip()
 
             time.sleep(1)
-            sys.exit()
+            exit()
 
