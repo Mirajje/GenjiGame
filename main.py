@@ -13,7 +13,7 @@ def run():
     random.seed(a=None, version=2)
     pygame.init()
     screen = pygame.display.set_mode((1000, 1000))
-    score = 250
+    score = 0
     pygame.display.set_caption(str(score))
     bg_color = (0, 0, 0)
     player = Player(screen, pygame.image.load('pixil-frame-0 (1).png'), 0.5)
