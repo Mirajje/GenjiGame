@@ -34,7 +34,7 @@ def run():
             pygame.display.flip()
 
             time.sleep(1)
-            sys.exit()
+            exit()
 
         bg_color = (score, score, score)
         score, sccircle = Update.update(bg_color, screen, player, obstacles, score, sccircle)
