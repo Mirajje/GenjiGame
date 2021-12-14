@@ -1,7 +1,7 @@
 import pygame
 
 
-class Player():
+class Player:
 
     def __init__(self, screen, image, speed):
 
@@ -17,9 +17,13 @@ class Player():
         self.mright = self.mleft = self.mupward = self.mdown = False
         self.centerx = float(self.rect.centerx)
         self.centery = float(self.rect.centery)
+        self.shield = False
+        self.invulnerability = 0
 
     def output(self):
 
+        if self.shield or self.invulnerability > 0:
+            pygame.draw.circle(self.screen, (255, 255, 0), (self.centerx, self.centery), 40, 5)
         self.screen.blit(self.image, self.rect)
 
     def update_player(self):
