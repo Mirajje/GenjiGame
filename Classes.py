@@ -1,4 +1,4 @@
 class Score:
 
-    score = 0
+    score = 250
 

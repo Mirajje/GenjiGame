@@ -2,7 +2,7 @@ import pygame
 import random
 
 
-class ScCircle():
+class ScCircle:
 
     def __init__(self, screen):
 

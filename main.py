@@ -13,13 +13,13 @@ def run():
     pygame.init()
     screen = pygame.display.set_mode((1000, 1000))
     score = Classes.Score()
-    player = Player(screen, pygame.image.load('pixil-frame-0 (1).png'), 0.6)
+    player = Player(screen, pygame.image.load('genji.png'), 0.6)
     obstacles = Group()
     waves = Group()
-    sccircle = Circles.Score_Circle(screen)
-    shieldcircle = Circles.Shield_Circle(screen)
+    sc_circle = Circles.ScoreCircle(screen)
+    shield_circle = Circles.ShieldCircle(screen)
     phase = False
-    coor = [125, 375, 625, 875]
+    coordinates = [125, 375, 625, 875]
     fight = False
     bg_color = (0, 0, 0)
     pygame.display.set_caption('GenjiGame')
@@ -44,12 +44,12 @@ def run():
                 fight = True
 
         if fight:
-            Update.fight_cycle(screen, score, coor, waves)
+            Update.fight_cycle(screen, score, coordinates, waves)
 
         Controls.events(player)
         if score.score <= 255:
             bg_color = (score.score, score.score, score.score)
-        Update.update(bg_color, screen, player, obstacles, score, sccircle, shieldcircle, phase, fight, waves)
+        Update.update(bg_color, screen, player, obstacles, score, sc_circle, shield_circle, phase, fight, waves)
 
 
 run()

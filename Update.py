@@ -4,16 +4,16 @@ import random
 import math
 
 
-def update(bg_color, screen, player, obstacles, score, sccircle, shieldcircle, phase, fight, waves):
+def update(bg_color, screen, player, obstacles, score, sc_circle, shield_circle, phase, fight, waves):
     screen.fill(bg_color)
 
     if not phase:
         obstacles.update(player)
-        if (abs(player.rect.centerx - sccircle.coordinates[0]) <= sccircle.radius) and \
-                (abs(player.rect.centery - sccircle.coordinates[1]) <= sccircle.radius):
+        if (abs(player.rect.centerx - sc_circle.coordinates[0]) <= sc_circle.radius) and \
+                (abs(player.rect.centery - sc_circle.coordinates[1]) <= sc_circle.radius):
             score.score += 10
-            sccircle.new()
-        obstacles_draw(sccircle, phase, obstacles, score)
+            sc_circle.new()
+        obstacles_draw(sc_circle, phase, obstacles, score)
         obstacles_collision_check(player, obstacles, screen)
 
     if fight:
@@ -29,18 +29,18 @@ def update(bg_color, screen, player, obstacles, score, sccircle, shieldcircle, p
     player.update_player()
     player.output()
 
-    shield_circle_collision_check(player, shieldcircle)
-    if not shieldcircle.exist and not player.shield:
-        shieldcircle.new(fight)
-    if shieldcircle.exist:
-        shieldcircle.output()
+    shield_circle_collision_check(player, shield_circle)
+    if not shield_circle.exist and not player.shield:
+        shield_circle.new(fight)
+    if shield_circle.exist:
+        shield_circle.output()
 
     # emp
     if phase and score.score > 0 and not fight:
         pygame.draw.circle(screen, (128, 0, 255), (500, 500), 500 / (score.score + 1) * 2, 5)
         if score.score < 5:
             player.shield = False
-            shieldcircle.exist = False
+            shield_circle.exist = False
 
     pygame.display.flip()
 
@@ -58,7 +58,7 @@ def obstacles_collision_check(player, obstacles, screen):
                 obstacle.kill()
             else:
                 screen.fill((0, 0, 0))
-                screen.blit(pygame.image.load('pixil-frame-0 (3).png'), (250, 400, 0, 0))
+                screen.blit(pygame.image.load('lose.png'), (250, 400, 0, 0))
                 pygame.display.flip()
                 time.sleep(1)
                 exit()
@@ -83,65 +83,56 @@ def wave_collision_check(screen, player, waves, score):
                 player.invulnerability = 300
             else:
                 screen.fill((0, 0, 0))
-                screen.blit(pygame.image.load('pixil-frame-0 (3).png'), (250, 400, 0, 0))
+                screen.blit(pygame.image.load('lose.png'), (250, 400, 0, 0))
                 pygame.display.flip()
                 time.sleep(1)
                 exit()
 
 
-def shield_circle_collision_check(player, shieldcircle):
-    if shieldcircle.exist and ((abs(player.rect.centerx - shieldcircle.coordinates[0]) <= shieldcircle.radius) and
-                               (abs(player.rect.centery - shieldcircle.coordinates[1]) <= shieldcircle.radius)):
+def shield_circle_collision_check(player, shield_circle):
+    if shield_circle.exist and ((abs(player.rect.centerx - shield_circle.coordinates[0]) <= shield_circle.radius) and
+                                (abs(player.rect.centery - shield_circle.coordinates[1]) <= shield_circle.radius)):
         player.shield = True
-        shieldcircle.exist = False
+        shield_circle.exist = False
 
 
-def obstacles_draw(sccircle, phase, obstacles, score):
+def obstacles_draw(sc_circle, phase, obstacles, score):
     if not phase:
-        sccircle.output()
+        sc_circle.output()
         for obstacle in obstacles.sprites():
             obstacle.speed = 0.1 + score.score / 450
             obstacle.draw_obstacle()
 
 
-def fight_cycle(screen, score, coor, waves):
+def fight_cycle(screen, score, coordinates, waves):
     score.score += 0.005
     if score.score <= 110:
         if score.score - math.floor(score.score) <= 0.005 and math.floor(score.score) % 50 == 0:
-            new_wave1 = Wave(screen, score.score, coor[random.randint(0, 3)], True, 250)
-            new_wave2 = Wave(screen, score.score, coor[random.randint(0, 3)], False, 250)
-            new_wave3 = Wave(screen, score.score, coor[random.randint(0, 3)], (random.randint(1, 2) == 2), 250)
-            new_wave4 = Wave(screen, score.score + 7, coor[random.randint(0, 3)], True, 250)
-            new_wave5 = Wave(screen, score.score + 7, coor[random.randint(0, 3)], False, 250)
-            new_wave6 = Wave(screen, score.score + 7, coor[random.randint(0, 3)], (random.randint(1, 2) == 2), 250)
-            new_wave7 = Wave(screen, score.score + 14, coor[random.randint(0, 3)], True, 250)
-            new_wave8 = Wave(screen, score.score + 14, coor[random.randint(0, 3)], False, 250)
-            new_wave9 = Wave(screen, score.score + 14, coor[random.randint(0, 3)], (random.randint(1, 2) == 2), 250)
-            waves.add(new_wave1)
-            waves.add(new_wave2)
-            waves.add(new_wave3)
-            waves.add(new_wave4)
-            waves.add(new_wave5)
-            waves.add(new_wave6)
-            waves.add(new_wave7)
-            waves.add(new_wave8)
-            waves.add(new_wave9)
+            waves.add(
+                Wave(screen, score.score, coordinates[random.randint(0, 3)], True, 250),
+                Wave(screen, score.score, coordinates[random.randint(0, 3)], False, 250),
+                Wave(screen, score.score, coordinates[random.randint(0, 3)], (random.randint(1, 2) == 2), 250),
+                Wave(screen, score.score + 7, coordinates[random.randint(0, 3)], True, 250),
+                Wave(screen, score.score + 7, coordinates[random.randint(0, 3)], False, 250),
+                Wave(screen, score.score + 7, coordinates[random.randint(0, 3)], (random.randint(1, 2) == 2), 250),
+                Wave(screen, score.score + 14, coordinates[random.randint(0, 3)], True, 250),
+                Wave(screen, score.score + 14, coordinates[random.randint(0, 3)], False, 250),
+                Wave(screen, score.score + 14, coordinates[random.randint(0, 3)], (random.randint(1, 2) == 2), 250)
+            )
     elif 320 > score.score >= 160:
         if score.score - math.floor(score.score) <= 0.005 and math.floor(score.score) % 40 == 0:
-            a = coor.copy()
-            while a == coor or a == coor[::-1]:
+            a = coordinates.copy()
+            while a == coordinates or a == coordinates[::-1]:
                 random.shuffle(a)
-            new_wave0 = Wave(screen, score.score, a[0], (math.floor(score.score) % 80 == 0), 250)
-            new_wave1 = Wave(screen, score.score + 1.5, a[1], (math.floor(score.score) % 80 == 0), 250)
-            new_wave2 = Wave(screen, score.score + 3, a[2], (math.floor(score.score) % 80 == 0), 250)
-            new_wave3 = Wave(screen, score.score + 4.5, a[3], (math.floor(score.score) % 80 == 0), 250)
-            waves.add(new_wave0)
-            waves.add(new_wave1)
-            waves.add(new_wave2)
-            waves.add(new_wave3)
+            waves.add(
+                Wave(screen, score.score, a[0], (math.floor(score.score) % 80 == 0), 250),
+                Wave(screen, score.score + 1.5, a[1], (math.floor(score.score) % 80 == 0), 250),
+                Wave(screen, score.score + 3, a[2], (math.floor(score.score) % 80 == 0), 250),
+                Wave(screen, score.score + 4.5, a[3], (math.floor(score.score) % 80 == 0), 250)
+            )
     elif score.score >= 320:
         screen.fill((255, 255, 255))
-        screen.blit(pygame.image.load('pixil-frame-0 (4).png'), (250, 400, 0, 0))
+        screen.blit(pygame.image.load('win.png'), (250, 400, 0, 0))
         pygame.display.flip()
 
         time.sleep(10)

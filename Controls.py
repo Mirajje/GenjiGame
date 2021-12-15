@@ -10,22 +10,22 @@ def events(player):
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
-                player.mright = True
+                player.move_right = True
             if event.key == pygame.K_w:
-                player.mupward = True
+                player.move_upward = True
             if event.key == pygame.K_a:
-                player.mleft = True
+                player.move_left = True
             if event.key == pygame.K_s:
-                player.mdown = True
+                player.move_down = True
 
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_d:
-                player.mright = False
+                player.move_right = False
             if event.key == pygame.K_w:
-                player.mupward = False
+                player.move_upward = False
             if event.key == pygame.K_a:
-                player.mleft = False
+                player.move_left = False
             if event.key == pygame.K_s:
-                player.mdown = False
+                player.move_down = False
 
 
