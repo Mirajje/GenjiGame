@@ -130,7 +130,6 @@ def fight_cycle(screen, score, coor, waves):
         if score.score - math.floor(score.score) <= 0.005 and math.floor(score.score) % 40 == 0:
             a = coor.copy()
             while a == coor or a == coor[::-1]:
-                print(a, coor)
                 random.shuffle(a)
             new_wave0 = Wave(screen, score.score, a[0], (math.floor(score.score) % 80 == 0), 250)
             new_wave1 = Wave(screen, score.score + 1.5, a[1], (math.floor(score.score) % 80 == 0), 250)
