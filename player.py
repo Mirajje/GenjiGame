@@ -40,3 +40,4 @@ class Player:
         self.rect.centerx = self.centerx
         self.rect.centery = self.centery
 
+

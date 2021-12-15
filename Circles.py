@@ -25,7 +25,7 @@ class Shield_Circle:
     def __init__(self, screen):
 
         self.screen = screen
-        self.radius = 50
+        self.radius = 45
         self.coordinates = (random.randint(100, 900), random.randint(100, 900))
         self.color = (255, 255, 0)
         self.exist = True
@@ -34,9 +34,13 @@ class Shield_Circle:
 
         pygame.draw.circle(self.screen, self.color, self.coordinates, self.radius)
 
-    def new(self):
+    def new(self, fight):
 
-        self.coordinates = (random.randint(100, 900), random.randint(100, 900))
-        self.exist = True
+        k = 15000
+        if fight:
+            k = 30000
+        if random.randint(1, k) == 6969:
+            self.coordinates = (random.randint(100, 900), random.randint(100, 900))
+            self.exist = True
 
 
