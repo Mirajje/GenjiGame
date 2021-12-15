@@ -22,6 +22,7 @@ def run():
     coor = [125, 375, 625, 875]
     fight = False
     bg_color = (0, 0, 0)
+    pygame.display.set_caption('GenjiGame')
 
     while True:
 
