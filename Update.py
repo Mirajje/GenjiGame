@@ -1,5 +1,7 @@
+import pygame
+
 import time
-from Attack import *
+from Wave import Wave
 import random
 import math
 
@@ -137,4 +139,3 @@ def fight_cycle(screen, score, coordinates, waves):
 
         time.sleep(10)
         exit()
-

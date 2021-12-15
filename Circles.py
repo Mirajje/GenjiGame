@@ -42,5 +42,3 @@ class ShieldCircle:
         if random.randint(1, k) == 6969:
             self.coordinates = (random.randint(100, 900), random.randint(100, 900))
             self.exist = True
-
-

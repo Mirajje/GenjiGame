@@ -20,4 +20,3 @@ class ScCircle:
     def new(self):
 
         self.coordinates = (random.randint(100, 900), random.randint(100, 900))
-

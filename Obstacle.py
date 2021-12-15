@@ -28,6 +28,3 @@ class Obstacle(pygame.sprite.Sprite):
     def draw_obstacle(self):
 
         pygame.draw.rect(self.screen, self.color, self.rect)
-
-
-

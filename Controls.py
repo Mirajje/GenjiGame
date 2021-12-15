@@ -27,5 +27,3 @@ def events(player):
                 player.move_left = False
             if event.key == pygame.K_s:
                 player.move_down = False
-
-

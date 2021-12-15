@@ -1,12 +1,13 @@
-from player import *
+import pygame
+
+from Player import Player
 import Controls
 import Update
-from Obstacle import *
+from Obstacle import Obstacle
 from pygame.sprite import Group
 import time
 import Circles
 import Classes
-from Attack import *
 
 
 def run():

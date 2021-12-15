@@ -30,7 +30,3 @@ class Wave(pygame.sprite.Sprite):
                 pygame.draw.rect(self.screen, self.color, (0, self.position - self.size/2, 1000, self.size))
             else:
                 pygame.draw.rect(self.screen, self.color, (self.position - self.size/2, 0, self.size, 1000))
-
-
-
-
