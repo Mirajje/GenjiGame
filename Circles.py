@@ -2,7 +2,7 @@ import pygame
 import random
 
 
-class Score_Circle:
+class ScoreCircle:
 
     def __init__(self, screen):
 
@@ -20,7 +20,7 @@ class Score_Circle:
         self.coordinates = (random.randint(100, 900), random.randint(100, 900))
 
 
-class Shield_Circle:
+class ShieldCircle:
 
     def __init__(self, screen):
 
