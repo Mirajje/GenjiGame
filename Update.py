@@ -1,12 +1,11 @@
-import pygame
-
 import time
-from Wave import Wave
+from Wave import *
 import random
 import math
 
 
-def update(bg_color, screen, player, obstacles, score, sc_circle, shield_circle, phase, fight, waves):
+def update(bg_color, screen, player, obstacles, score, sc_circle, shield_circle, phase, fight, waves,
+           obstacle_speed_list, difficulty):
     screen.fill(bg_color)
 
     if not phase:
@@ -15,13 +14,11 @@ def update(bg_color, screen, player, obstacles, score, sc_circle, shield_circle,
                 (abs(player.rect.centery - sc_circle.coordinates[1]) <= sc_circle.radius):
             score.score += 10
             sc_circle.new()
-        obstacles_draw(sc_circle, phase, obstacles, score)
+        objects_draw(sc_circle, phase, obstacles, score, obstacle_speed_list, difficulty)
         obstacles_collision_check(player, obstacles, screen)
 
     if fight:
         wave_collision_check(screen, player, waves, score)
-
-    if fight:
         waves.update(score)
         for wave in waves:
             wave.output(score)
@@ -98,11 +95,11 @@ def shield_circle_collision_check(player, shield_circle):
         shield_circle.exist = False
 
 
-def obstacles_draw(sc_circle, phase, obstacles, score):
+def objects_draw(sc_circle, phase, obstacles, score, obstacle_speed_list, difficulty):
     if not phase:
         sc_circle.output()
         for obstacle in obstacles.sprites():
-            obstacle.speed = 0.1 + score.score / 450
+            obstacle.speed = 0.1 + score.score / obstacle_speed_list[difficulty]
             obstacle.draw_obstacle()
 
 

@@ -5,8 +5,8 @@ class Player:
 
     def __init__(self, screen, image, speed):
 
+        self.normal_speed = self.speed = speed
         self.screen = screen
-        self.speed = speed
         self.image = image
 
         self.rect = self.image.get_rect()
@@ -27,7 +27,9 @@ class Player:
         self.screen.blit(self.image, self.rect)
 
     def update_player(self):
-
+        if (self.move_right and self.move_upward) or (self.move_right and self.move_down) or \
+                (self.move_left and self.move_upward) or (self.move_left and self.move_down):
+            self.speed = self.speed / (2 ** 0.5)
         if self.move_right and self.rect.right < self.screen_rect.right:
             self.centerx += self.speed
         if self.move_down and self.rect.bottom < self.screen_rect.bottom:
@@ -37,5 +39,6 @@ class Player:
         if self.move_left and self.rect.left > 0:
             self.centerx -= self.speed
 
+        self.speed = self.normal_speed
         self.rect.centerx = self.centerx
         self.rect.centery = self.centery

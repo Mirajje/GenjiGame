@@ -1,13 +1,12 @@
-import pygame
-
-from Player import Player
+from Player import *
 import Controls
 import Update
-from Obstacle import Obstacle
+from Obstacle import *
 from pygame.sprite import Group
 import time
 import Circles
 import Classes
+import Menu
 
 
 def run():
@@ -25,6 +24,11 @@ def run():
     bg_color = (0, 0, 0)
     pygame.display.set_caption('GenjiGame')
 
+    difficulty = Menu.menu(screen)
+
+    frequency_list = [150, 100, 50]
+    obstacle_speed_list = [750, 600, 450]
+
     while True:
 
         pygame.time.Clock().tick(1200)
@@ -34,9 +38,9 @@ def run():
             score.score = 255
 
         if not phase:
-            frequency = int(50 / (score.score + 1)) + 1
+            frequency = int(frequency_list[difficulty] / (score.score + 1)) + 1
             if time.process_time() % frequency == 0:
-                new_obstacle = Obstacle(screen, 0.1 + score.score / 450)
+                new_obstacle = Obstacle(screen, 0.1 + score.score / obstacle_speed_list[difficulty])
                 obstacles.add(new_obstacle)
         else:
             if score.score > 0 and not fight:
@@ -50,7 +54,8 @@ def run():
         Controls.events(player)
         if score.score <= 255:
             bg_color = (score.score, score.score, score.score)
-        Update.update(bg_color, screen, player, obstacles, score, sc_circle, shield_circle, phase, fight, waves)
+        Update.update(bg_color, screen, player, obstacles, score, sc_circle, shield_circle, phase, fight, waves,
+                      obstacle_speed_list, difficulty)
 
 
 run()
